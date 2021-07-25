@@ -1,0 +1,44 @@
+[[ stl ]]
+
+// log.tea
+//
+// MIT License
+//
+// Copyright (c) 2021 Ferhat Geçdoğan All Rights Reserved.
+// Distributed under the terms of the MIT License.
+//
+
+import tea.green.fmt
+import tea.green.string
+
+import tea.green.type
+import tea.green.vector
+import tea.green.char
+import tea.black.sstream
+
+import tea.green.color
+
+enum __Log_Types__ {
+    Info,
+    Warning,
+    Error,
+    Help
+}
+
+module log {
+    fn log#print<'Args>(__type: __Log_Types__, log_datas: Args) {
+        if __type == Info {
+            color#print("info:", LightYellow, Light)
+        } else if __type == Warning {
+            color#print("warning:", Yellow, Bold)
+        } else if __type == Error {
+            color#print("error:", LightRed, Bold)
+        } else {
+            color#print("help:", Green, Bold)
+        }
+        
+        fmt#print("\x1b[0;97m")
+        fmt#basic_print(log_datas, +_)
+        color#print("\n", White, Light)
+    }
+} // log
